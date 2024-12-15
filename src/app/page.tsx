@@ -1,5 +1,6 @@
 import ListUser from "@/components/ListUser";
 import Link from "next/link";
+import {Suspense} from "react";
 
 export default function Home() {
   return (
@@ -15,7 +16,10 @@ export default function Home() {
             Add New User
           </Link>
         </div>
-        <ListUser />
+
+        <Suspense fallback="Loading...">
+          <ListUser />
+        </Suspense>
       </div>
     </div>
   );
