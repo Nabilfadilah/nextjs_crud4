@@ -28,6 +28,32 @@ const ListUser = () => {
     getUsers();
   }, []);
 
+  // delete user
+  const deleteUser = (id: number) => {
+    // Tampilkan konfirmasi sebelum menghapus
+    const isConfirmed = window.confirm(
+      "Apakah Anda yakin ingin menghapus data ini?"
+    );
+
+    if (isConfirmed) {
+      // Jika user memilih 'OK', lakukan penghapusan
+      axios
+        .delete(`http://localhost:3001/api/delete/${id}`)
+        .then(function (response) {
+          getUsers(); // Refresh data setelah penghapusan
+          console.log("User berhasil dihapus:", response.data);
+          alert("Data berhasil dihapus!");
+        })
+        .catch(function (error) {
+          console.error("Gagal menghapus user:", error);
+          alert("Terjadi kesalahan saat menghapus data.");
+        });
+    } else {
+      // Jika user memilih 'Cancel', batalkan penghapusan
+      console.log("Penghapusan dibatalkan.");
+    }
+  };
+
   return (
     <table className="overflow-x-auto">
       <thead className="text-sm text-gray-700 uppercase bg-gray-50">
@@ -40,9 +66,9 @@ const ListUser = () => {
         </tr>
       </thead>
       <tbody>
-        {users.map((user, key) => (
-          <tr key={key} className="bg-white border-b">
-            <td className="py-3 px-6">{user.id}.</td>
+        {users.map((user, index) => (
+          <tr key={index} className="bg-white border-b">
+            <td className="py-3 px-6">{index + 1}.</td>
             <td className="py-3 px-6">{user.name}</td>
             <td className="py-3 px-6">{user.email}</td>
             <td className="py-3 px-6">{user.username}</td>
@@ -54,7 +80,7 @@ const ListUser = () => {
                 Edit
               </Link>
               <button
-                // onClick={() => deleteUser(user.id)}
+                onClick={() => deleteUser(user.id)}
                 className="btn btn-error"
               >
                 Delete
