@@ -2,7 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+html, body {
+  @apply bg-white text-gray-900; /* Background putih, teks default abu-abu gelap */
+  min-height: 100%; /* Memastikan latar belakang mencakup seluruh halaman */
+}
+
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -12,10 +17,10 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
-body {
+/* body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
-}
+} */
